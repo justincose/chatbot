@@ -13,7 +13,6 @@ import { EmptyScreen } from './empty-screen'
 import { SearchModeOperatorToggle } from './search-mode-operator-toggle'
 import { SearchModeToggle } from './search-mode-toggle'
 import { Button } from './ui/button'
-import { IconLogo } from './ui/icons'
 
 interface ChatPanelProps {
   input: string
@@ -147,14 +146,13 @@ export function ChatPanel({
   return (
     <div
       className={cn(
-        'w-full bg-background group/form-container shrink-0',
+        'w-[100vw] sm:w-full bg-background group/form-container shrink-0',
         messages.length > 0 ? 'sticky bottom-0 pt-8 px-2 pb-4' : 'px-6'
       )}
     >
       {messages.length === 0 && (
         <div className="mb-10 flex flex-col items-center gap-4">
-          <IconLogo className="size-12 text-muted-foreground" />
-          <p className="text-center text-3xl font-semibold">
+          <p className="text-center text-2xl sm:text-3xl font-light">
             How can I help you today?
           </p>
         </div>
@@ -177,7 +175,7 @@ export function ChatPanel({
           </Button>
         )}
 
-        <div className="relative flex flex-col w-full gap-2 bg-muted rounded-3xl border border-input">
+        <div className="relative flex flex-col w-full gap-2 bg-muted rounded-[10px] border border-input">
           <Textarea
             ref={inputRef}
             name="input"

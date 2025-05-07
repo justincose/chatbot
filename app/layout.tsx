@@ -28,12 +28,12 @@ export const metadata: Metadata = {
     title,
     description
   },
-  twitter: {
-    title,
-    description,
-    card: 'summary_large_image',
-    creator: '@miiura'
-  }
+  // twitter: {
+  //   title,
+  //   description,
+  //   card: 'summary_large_image',
+  //   creator: '@miiura'
+  // }
 }
 
 export const viewport: Viewport = {
