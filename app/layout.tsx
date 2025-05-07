@@ -30,18 +30,20 @@ export const metadata: Metadata = {
     siteName: 'Advanced Chatbot',
     images: [
       {
-        url: '/images/opengraph-image.png', // Place og.png in your /public folder
+        url: '/images/opengraph-image.png',
+        width: 1200,
+        height: 627,
         alt: 'Advanced Chatbot Preview Image'
       }
     ],
     type: 'website'
+  },
+  twitter: {
+    title,
+    description,
+    creator: '@justinrcose',
+    images: ['/images/opengraph-image.png?v=2']
   }
-  // twitter: {
-  //   title,
-  //   description,
-  //   card: 'summary_large_image',
-  //   creator: '@miiura'
-  // }
 }
 
 export const viewport: Viewport = {
