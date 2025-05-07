@@ -5,7 +5,7 @@ import { Model } from '@/lib/types/models'
 import { isProviderEnabled } from '@/lib/utils/registry'
 import { cookies } from 'next/headers'
 
-export const maxDuration = 30
+export const maxDuration = 300
 
 const DEFAULT_MODEL: Model = {
   id: 'gpt-4o-mini',
