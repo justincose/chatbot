@@ -17,17 +17,16 @@ const fontSans = FontSans({
 })
 
 const title = 'Advanced Chatbot'
-const description =
-  'AI-powered search engine.'
+const description = 'AI-powered search engine.'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://morphic.sh'),
+  metadataBase: new URL('https://advancedchatbot.app'),
   title,
   description,
   openGraph: {
     title,
     description
-  },
+  }
   // twitter: {
   //   title,
   //   description,
