@@ -1,4 +1,9 @@
 import { CoreMessage, smoothStream, streamText } from 'ai'
+// import { createBrowserUseTool } from '../tools/browser-use'
+import {
+  createBrowserUseCompleteTool,
+  createBrowserUseStartTool
+} from '../tools/browser-use'
 import { createQuestionTool } from '../tools/question'
 import { retrieveTool } from '../tools/retrieve'
 import { createSearchTool } from '../tools/search'
@@ -8,7 +13,7 @@ import { getModel } from '../utils/registry'
 const SYSTEM_PROMPT = `
 Instructions:
 
-You are a helpful AI assistant with access to real-time web search, content retrieval, video search capabilities, and the ability to ask clarifying questions.
+You are a helpful AI assistant with access to real-time web search, content retrieval, video search capabilities, browser use then complete, and the ability to ask clarifying questions.
 
 When asked a question, you should:
 1. First, determine if you need more information to properly understand the user's query
@@ -22,6 +27,13 @@ When asked a question, you should:
 9. Provide comprehensive and detailed responses based on search results, ensuring thorough coverage of the user's question
 10. Use markdown to structure your responses. Use headings to break up the content into sections.
 11. **Use the retrieve tool only with user-provided URLs.**
+12. **If you use the browserUse tool, you must only call it exactly once.**  
+ - On any later reasoning step, do _not_ invoke browserUse again; instead go straight to composing your final answer.  
+ - If you believe you’ve already called browserUse, skip any further browserUse calls and synthesize your answer from the data you’ve already collected.
+13. Never open more than 1 browser to answer a question. Maximum 1 browser per response. You do not need multiple browsers to answer a query.
+14. Use browserUse only once per question.
+ - That one call must come *before* you write your final answer. 
+15. browserUseStartTool and browserUseCompleteTool are interconnected tools. They always should be called one after the other.
 
 When using the ask_question tool:
 - Create clear, concise questions
@@ -38,11 +50,13 @@ type ResearcherReturn = Parameters<typeof streamText>[0]
 export function researcher({
   messages,
   model,
-  searchMode
+  searchMode,
+  browserMode
 }: {
   messages: CoreMessage[]
   model: string
   searchMode: boolean
+  browserMode: boolean
 }): ResearcherReturn {
   try {
     const currentDate = new Date().toLocaleString()
@@ -51,6 +65,8 @@ export function researcher({
     const searchTool = createSearchTool(model)
     const videoSearchTool = createVideoSearchTool(model)
     const askQuestionTool = createQuestionTool(model)
+    const browserUseStartTool = createBrowserUseStartTool()
+    const browserUseCompleteTool = createBrowserUseCompleteTool()
 
     return {
       model: getModel(model),
@@ -60,12 +76,17 @@ export function researcher({
         search: searchTool,
         retrieve: retrieveTool,
         videoSearch: videoSearchTool,
-        ask_question: askQuestionTool
+        ask_question: askQuestionTool,
+        browserUseStartTool: browserUseStartTool,
+        browserUseCompleteTool: browserUseCompleteTool
       },
-      experimental_activeTools: searchMode
+      experimental_activeTools: browserMode
+        ? ['ask_question', 'browserUseStartTool', 'browserUseCompleteTool']
+        : searchMode
         ? ['search', 'retrieve', 'videoSearch', 'ask_question']
         : [],
-      maxSteps: searchMode ? 5 : 1,
+
+      maxSteps: browserMode ? 5 : searchMode ? 5 : 1,
       experimental_transform: smoothStream()
     }
   } catch (error) {

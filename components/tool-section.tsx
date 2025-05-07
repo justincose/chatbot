@@ -1,6 +1,7 @@
 'use client'
 
 import { ToolInvocation } from 'ai'
+import { BrowserUseSection } from './browser-use-section'
 import { QuestionConfirmation } from './question-confirmation'
 import RetrieveSection from './retrieve-section'
 import { SearchSection } from './search-section'
@@ -75,6 +76,14 @@ export function ToolSection({
       return (
         <RetrieveSection
           tool={tool}
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+        />
+      )
+    case 'browserUseStartTool':
+      return (
+        <BrowserUseSection
+        tool={tool as any}
           isOpen={isOpen}
           onOpenChange={onOpenChange}
         />

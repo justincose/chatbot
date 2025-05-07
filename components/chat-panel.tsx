@@ -2,6 +2,7 @@
 
 import { Model } from '@/lib/types/models'
 import { cn } from '@/lib/utils'
+import { getCookie, setCookie } from '@/lib/utils/cookies'
 import { Message } from 'ai'
 import { ArrowUp, ChevronDown, MessageCirclePlus, Square } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -103,12 +104,51 @@ export function ChatPanel({
       })
     }
   }
+  const [searchMode, setSearchMode] = useState(false)
+  const [browserMode, setBrowserMode] = useState(false)
+
+  // Read cookies on mount (client-only)
+  useEffect(() => {
+    const s = getCookie('search-mode')
+    if (s === null) {
+      setCookie('search-mode', 'true')
+      setSearchMode(true)
+    } else {
+      setSearchMode(s === 'true')
+    }
+
+    const b = getCookie('browser-mode')
+    if (b === null) {
+      setCookie('browser-mode', 'false')
+      setBrowserMode(false)
+    } else {
+      setBrowserMode(b === 'true')
+    }
+  }, [])
+
+  function handleSearchChange(on: boolean) {
+    setSearchMode(on)
+    setCookie('search-mode', on.toString())
+    if (on) {
+      setBrowserMode(false)
+      setCookie('browser-mode', 'false')
+    }
+  }
+
+  function handleBrowserChange(on: boolean) {
+    setBrowserMode(on)
+    setCookie('browser-mode', on.toString())
+    if (on) {
+      setSearchMode(false)
+      setCookie('search-mode', 'false')
+    }
+  }
 
   return (
     <div
       className={cn(
         'w-full bg-background group/form-container shrink-0',
-        messages.length > 0 ? 'sticky bottom-0 px-2 pb-4' : 'px-6'
+        messages.length > 0 ? 'sticky bottom-0 pt-8 px-2 pb-4' : 'px-6'
       )}
     >
       {messages.length === 0 && (
@@ -179,8 +219,14 @@ export function ChatPanel({
           <div className="flex items-center justify-between p-3">
             <div className="flex items-center gap-2">
               {/* <ModelSelector models={models || []} /> */}
-              <SearchModeToggle />
-              <SearchModeOperatorToggle />
+              <SearchModeToggle
+                pressed={searchMode}
+                onPressedChange={handleSearchChange}
+              />
+              <SearchModeOperatorToggle
+                pressed={browserMode}
+                onPressedChange={handleBrowserChange}
+              />
             </div>
             <div className="flex items-center gap-2">
               {messages.length > 0 && (

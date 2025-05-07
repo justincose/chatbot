@@ -1,40 +1,32 @@
+// components/SearchModeOperatorToggle.tsx
 'use client'
 
 import { cn } from '@/lib/utils'
-import { getCookie, setCookie } from '@/lib/utils/cookies'
-import { Monitor } from 'lucide-react' // optional icon change
-import { useEffect, useState } from 'react'
+import { Monitor } from 'lucide-react'
 import { Toggle } from './ui/toggle'
 
-export function SearchModeOperatorToggle() {
-  const [isOperatorMode, setIsOperatorMode] = useState(false)
+export interface SearchModeOperatorToggleProps {
+  pressed: boolean
+  onPressedChange: (pressed: boolean) => void
+}
 
-  useEffect(() => {
-    const savedMode = getCookie('operator-mode')
-    if (savedMode !== null) {
-      setIsOperatorMode(savedMode === 'true')
-    } else {
-      setCookie('operator-mode', 'false')
-    }
-  }, [])
-
-  const handleOperatorModeChange = (pressed: boolean) => {
-    setIsOperatorMode(pressed)
-    setCookie('operator-mode', pressed.toString())
-  }
-
+export function SearchModeOperatorToggle({
+  pressed,
+  onPressedChange
+}: SearchModeOperatorToggleProps) {
   return (
     <Toggle
-      aria-label="Toggle Browser Operator mode"
-      pressed={isOperatorMode}
-      onPressedChange={handleOperatorModeChange}
+      aria-label="Toggle browser operator mode"
+      pressed={pressed}
+      onPressedChange={onPressedChange}
       variant="outline"
       className={cn(
         'gap-1 px-3 border border-input text-muted-foreground bg-background',
         'data-[state=on]:bg-accent-blue',
         'data-[state=on]:text-accent-blue-foreground',
         'data-[state=on]:border-accent-blue-border',
-        'hover:bg-accent hover:text-accent-foreground rounded-full'
+        'hover:bg-accent hover:text-accent-foreground',
+        'rounded-full'
       )}
     >
       <Monitor className="size-4" />

@@ -6,5 +6,6 @@ export interface BaseStreamConfig {
   model: Model
   chatId: string
   searchMode: boolean
+  browserMode: boolean
   userId: string
 }

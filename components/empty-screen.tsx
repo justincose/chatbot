@@ -3,22 +3,23 @@ import { ArrowRight } from 'lucide-react'
 
 const exampleMessages = [
   {
-    heading: 'What is DeepSeek R1?',
-    message: 'What is DeepSeek R1?'
+    heading: 'What is Poppy AI and what does it do?',
+    message: 'What is Poppy AI and what does it do?'
   },
   {
-    heading: 'Why is Nvidia growing rapidly?',
-    message: 'Why is Nvidia growing rapidly?'
+    heading: 'Who founded Poppy AI?',
+    message: 'Who founded Poppy AI (2024)?'
   },
   {
-    heading: 'Tesla vs Rivian',
-    message: 'Tesla vs Rivian'
+    heading: 'What makes Poppy AI different from other AI companies?',
+    message: 'What makes Poppy AI different from other AI companies?'
   },
   {
-    heading: 'Summary: https://arxiv.org/pdf/2501.05707',
-    message: 'Summary: https://arxiv.org/pdf/2501.05707'
+    heading: 'What are some potential use cases for Poppy AI?',
+    message: 'What are some potential use cases for Poppy AI?'
   }
 ]
+
 export function EmptyScreen({
   submitMessage,
   className
