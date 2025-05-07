@@ -31,7 +31,7 @@ export function BrowserUseSection({
       onClick={() => onOpenChange(!isOpen)}
       className="flex justify-between w-full p-1 rounded-md"
     >
-      <strong>🖥️ Browser Lookup:</strong> “{prompt}”
+      <strong>Operator</strong> “{prompt}”
     </button>
   )
 
@@ -45,7 +45,7 @@ export function BrowserUseSection({
         isOpen={isOpen}
         onOpenChange={onOpenChange}
       >
-        <Section>Loading browser lookup…</Section>
+        <Section>Launcing browser...</Section>
       </CollapsibleMessage>
     )
   }
@@ -62,14 +62,14 @@ export function BrowserUseSection({
       onOpenChange={onOpenChange}
     >
       {liveUrl ? (
-          <iframe
-            src={liveUrl}
-            title="Live Browser Preview"
-            className="w-full h-[500px] border rounded"
-          />
-        ) : (
-          <div className="text-muted-foreground italic">Loading browser...</div>
-        )}
+        <iframe
+          src={liveUrl}
+          title="Live Browser Preview"
+          className="w-full h-[400px] sm:h-[520px] border rounded"
+        />
+      ) : (
+        <div className="text-muted-foreground italic">Loading browser...</div>
+      )}
 
       {/* {result && (
         <Section title="Extracted Result">
