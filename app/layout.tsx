@@ -25,7 +25,16 @@ export const metadata: Metadata = {
   description,
   openGraph: {
     title,
-    description
+    description,
+    url: '/',
+    siteName: 'Advanced Chatbot',
+    images: [
+      {
+        url: '/images/opengraph-image.png', // Place og.png in your /public folder
+        alt: 'Advanced Chatbot Preview Image'
+      }
+    ],
+    type: 'website'
   }
   // twitter: {
   //   title,
