@@ -65,6 +65,14 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta
+          property="og:image"
+          content="https://advancedchatbot.app/images/opengraph-image.png?v=2"
+        />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+      </head>
       <body
         className={cn(
           'min-h-screen flex flex-col font-sans antialiased',
