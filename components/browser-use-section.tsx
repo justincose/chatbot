@@ -45,7 +45,7 @@ export function BrowserUseSection({
         isOpen={isOpen}
         onOpenChange={onOpenChange}
       >
-        <Section>Launcing browser...</Section>
+        <Section>Launching browser...</Section>
       </CollapsibleMessage>
     )
   }
@@ -65,7 +65,7 @@ export function BrowserUseSection({
         <iframe
           src={liveUrl}
           title="Live Browser Preview"
-          className="w-full h-[400px] sm:h-[520px] border rounded"
+          className="w-full h-[350px] sm:h-[520px] border rounded"
         />
       ) : (
         <div className="text-muted-foreground italic">Loading browser...</div>
