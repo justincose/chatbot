@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from 'react'
 import Textarea from 'react-textarea-autosize'
 import { useArtifact } from './artifact/artifact-context'
 import { EmptyScreen } from './empty-screen'
-import { ModelSelector } from './model-selector'
+import { SearchModeOperatorToggle } from './search-mode-operator-toggle'
 import { SearchModeToggle } from './search-mode-toggle'
 import { Button } from './ui/button'
 import { IconLogo } from './ui/icons'
@@ -178,8 +178,9 @@ export function ChatPanel({
           {/* Bottom menu area */}
           <div className="flex items-center justify-between p-3">
             <div className="flex items-center gap-2">
-              <ModelSelector models={models || []} />
+              {/* <ModelSelector models={models || []} /> */}
               <SearchModeToggle />
+              <SearchModeOperatorToggle />
             </div>
             <div className="flex items-center gap-2">
               {messages.length > 0 && (
